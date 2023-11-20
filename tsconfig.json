@@ -1,3 +1,37 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": "C:/Users/devan/Code/DevAngelSanchez/Repositorios/spotify-clon",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@/components": [
+        "src/components/*"
+      ],
+      "@/icons": [
+        "src/icons/*"
+      ],
+      "@/libs": [
+        "src/libs/*"
+      ],
+      "@/layout": [
+        "src/layout/*"
+      ],
+      "@/pages": [
+        "src/pages/*"
+      ],
+      "@/music": [
+        "public/music/*"
+      ],
+      "@/fonts": [
+        "public/fonts/*"
+      ],
+      "@/helpers": [
+        "src/helpers/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }
