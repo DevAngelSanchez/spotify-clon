@@ -29,7 +29,10 @@
       ],
       "@/helpers": [
         "src/helpers/*"
-      ]
+      ],
+      "@/store": [
+        "src/store/*"
+      ],
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

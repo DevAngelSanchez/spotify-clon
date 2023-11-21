@@ -1,6 +1,7 @@
+import { usePlayerStore } from "@/store/playerStore";
 import { useRef, useState, useEffect } from "react"
 
-const Pause = () => (
+export const Pause = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="Layer_1"
@@ -13,7 +14,7 @@ const Pause = () => (
   ></path></svg>
 )
 
-const Play = () => (
+export const Play = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="Layer_16"
@@ -28,7 +29,7 @@ const Play = () => (
 
 export function Player() {
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { isPlaying, setIsPlaying } = usePlayerStore(state => state);
   const [currentSong, setCurrentSong] = useState(null);
   const audioRef = useRef();
 
