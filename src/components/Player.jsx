@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { usePlayerStore } from "@/store/playerStore";
 import CurrentSong from "@/components/CurrentSong";
 import VolumeControl from "@/components/VolumeControl";
+import SongControl from "@/components/SongControl";
 
 export const Pause = () => (
   <svg
@@ -39,13 +40,16 @@ export const Volume = () => (
 
 export function Player() {
 
-  const { currentMusic, isPlaying, setIsPlaying } = usePlayerStore(state => state);
+  const { currentMusic, isPlaying, setIsPlaying, volume } = usePlayerStore(state => state);
   const audioRef = useRef();
-  const volumenRef = useRef(1);
 
   useEffect(() => {
     isPlaying ? audioRef.current.play() : audioRef.current.pause();
   }, [isPlaying]);
+
+  useEffect(() => {
+    audioRef.current.volume = volume;
+  }, [volume]);
 
   useEffect(() => {
     const { songs, song, playlist } = currentMusic;
@@ -53,10 +57,10 @@ export function Player() {
     if (song) {
       const src = `/music/${playlist?.id}/0${song?.id}.mp3`;
       audioRef.current.src = src;
-      audioRef.current.volume = volumenRef.current;
+      audioRef.current.volume = volume;
       audioRef.current.play();
     }
-  }, [currentMusic])
+  }, [currentMusic]);
 
   const handleClick = () => {
     setIsPlaying(!isPlaying);
@@ -69,10 +73,12 @@ export function Player() {
       </div>
 
       <div className="grid place-content-center gap-4 flex-1">
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-col items-center">
           <button className="bg-white rounded-full p-2" onClick={handleClick}>
             {isPlaying ? <Pause /> : <Play />}
           </button>
+          <SongControl audio={audioRef} />
+          <audio ref={audioRef} />
         </div>
       </div>
 
@@ -80,7 +86,6 @@ export function Player() {
         <VolumeControl />
       </div>
 
-      <audio ref={audioRef} />
     </div>
   )
 }
